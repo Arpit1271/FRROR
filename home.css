@@ -75,6 +75,15 @@ h3 {
     transition: all 0.2s ease;
 }
 
+.cart-icon:hover {
+    box-shadow: 
+        6px 6px 12px var(--shadow-dark),
+        -6px -6px 12px var(--shadow-light);
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+
 #cart-count {
     color: var(--accent);
     font-weight: 800;
@@ -200,11 +209,20 @@ h3 {
     transition: all 0.2s ease;
 }
 
+.neo-btn:hover {
+    box-shadow:
+        4px 4px 8px var(--shadow-dark),
+        -4px -4px 8px var(--shadow-light);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
 .neo-btn:active {
     box-shadow:
         inset 4px 4px 8px var(--shadow-dark),
         inset -4px -4px 8px var(--shadow-light);
     color: var(--accent);
+    transform: translateY(0);
 }
 
 /* Toasts */
@@ -243,6 +261,14 @@ h3 {
 .nav-actions {
     display: flex;
     align-items: center;
+    gap: 0.8rem;
+}
+
+.nav-actions .neo-btn {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Quantity Controls */
@@ -302,7 +328,7 @@ h3 {
 .neo-search {
     width: 100%;
     padding: 1rem 1.5rem;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 30px;
     background: var(--bg-color);
     color: var(--text-color);
@@ -361,12 +387,18 @@ h3 {
 .close-glass {
     position: absolute;
     top: 1rem;
-    right: 1.5rem;
+    right: 1rem;
     font-size: 1.5rem;
     font-weight: 800;
     cursor: pointer;
     color: var(--brand-color);
     transition: color 0.2s;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
 .close-glass:hover {

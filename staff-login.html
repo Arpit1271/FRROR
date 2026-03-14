@@ -50,7 +50,7 @@
         .login-input {
             width: 100%;
             padding: 1rem 1.2rem;
-            border: none;
+            border: 1px solid transparent;
             border-radius: 15px;
             background: var(--bg-color);
             color: var(--text-color);
@@ -87,10 +87,18 @@
             margin-top: 0.5rem;
         }
 
+        .login-btn:hover {
+            box-shadow:
+                4px 4px 8px var(--shadow-dark),
+                -4px -4px 8px var(--shadow-light);
+            transform: translateY(-1px);
+        }
+
         .login-btn:active {
             box-shadow:
                 inset 4px 4px 8px var(--shadow-dark),
                 inset -4px -4px 8px var(--shadow-light);
+            transform: translateY(0);
         }
 
         .error-msg {

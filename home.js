@@ -30,19 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Secret Staff Portal navigation logic (5 clicks on logo)
+    // Smart Logo: if authenticated as staff, go to staff portal; else 5-click secret
     let logoClicks = 0;
     const secretLink = document.getElementById('secret-brand-link');
     if (secretLink) {
         secretLink.addEventListener('click', () => {
-            logoClicks++;
-            if (logoClicks >= 5) {
-                window.location.href = 'staff-login.html';
+            if (sessionStorage.getItem('frrorStaffAuth') === 'true') {
+                window.location.href = 'staff.html';
+            } else {
+                logoClicks++;
+                if (logoClicks >= 5) {
+                    window.location.href = 'staff-login.html';
+                }
+                setTimeout(() => { logoClicks = 0; }, 2000);
             }
-            // Reset after 2 seconds of inactivity
-            setTimeout(() => {
-                logoClicks = 0;
-            }, 2000);
         });
     }
 });
