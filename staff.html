@@ -298,6 +298,13 @@
 
 <body>
 
+    <!-- Auth Guard: redirect if not authenticated -->
+    <script>
+        if (sessionStorage.getItem('frrorStaffAuth') !== 'true') {
+            window.location.href = 'staff-login.html';
+        }
+    </script>
+
     <nav class="neo-nav">
         <div class="brand" style="cursor: pointer;" onclick="window.location.href='home.html'">FRROR <span
                 style="font-size: 1rem; color: var(--accent);">Staff</span></div>
@@ -383,7 +390,7 @@
 
     <!-- Orders Glassmorphism Modal -->
     <div class="glass-modal" id="orders-modal">
-        <div class="glass-content" style="max-width: 600px;">
+        <div class="glass-content" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
             <span class="close-glass" id="btn-close-orders">×</span>
             <h3 style="color: var(--brand-color); margin-bottom: 1.5rem; font-size: 1.5rem;">📋 Active Orders</h3>
             <div class="order-list" id="orders-list">

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FRROR Staff Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-card {
+            width: 90%;
+            max-width: 400px;
+            padding: 3rem 2rem;
+            border-radius: 25px;
+            background: var(--bg-color);
+            box-shadow:
+                9px 9px 16px var(--shadow-dark),
+                -9px -9px 16px var(--shadow-light);
+            text-align: center;
+        }
+
+        .login-card h1 {
+            color: var(--brand-color);
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .login-card .subtitle {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: none;
+            border-radius: 15px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow:
+                inset 4px 4px 8px var(--shadow-dark),
+                inset -4px -4px 8px var(--shadow-light);
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .login-input:focus {
+            box-shadow:
+                inset 6px 6px 10px var(--shadow-dark),
+                inset -6px -6px 10px var(--shadow-light);
+            border: 1px solid rgba(255, 138, 101, 0.4);
+        }
+
+        .login-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            background: var(--bg-color);
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow:
+                6px 6px 12px var(--shadow-dark),
+                -6px -6px 12px var(--shadow-light);
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .login-btn:active {
+            box-shadow:
+                inset 4px 4px 8px var(--shadow-dark),
+                inset -4px -4px 8px var(--shadow-light);
+        }
+
+        .error-msg {
+            color: #e53e3e;
+            font-weight: 700;
+            font-size: 0.9rem;
+            min-height: 1.2rem;
+            transition: opacity 0.3s;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--brand-color);
+            font-weight: 600;
+            opacity: 0.6;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <h1>FRROR</h1>
+        <div class="subtitle">Staff Portal</div>
+        <div class="login-form">
+            <input type="text" class="login-input" id="login-username" placeholder="Username" autocomplete="off">
+            <input type="password" class="login-input" id="login-password" placeholder="Password">
+            <div class="error-msg" id="error-msg"></div>
+            <button class="login-btn" id="btn-login">Sign In</button>
+        </div>
+        <div class="back-link" onclick="window.location.href='home.html'">← Back to Menu</div>
+    </div>
+
+    <script>
+        // Check if already authenticated
+        if (sessionStorage.getItem('frrorStaffAuth') === 'true') {
+            window.location.href = 'staff.html';
+        }
+
+        document.getElementById('btn-login').addEventListener('click', attemptLogin);
+        document.getElementById('login-password').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') attemptLogin();
+        });
+
+        function attemptLogin() {
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorEl = document.getElementById('error-msg');
+
+            if (username === 'staffforFRROR' && password === '280997') {
+                sessionStorage.setItem('frrorStaffAuth', 'true');
+                window.location.href = 'staff.html';
+            } else {
+                errorEl.textContent = 'Invalid username or password';
+                setTimeout(() => { errorEl.textContent = ''; }, 3000);
+            }
+        }
+    </script>
+</body>
+
+</html>

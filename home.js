@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         secretLink.addEventListener('click', () => {
             logoClicks++;
             if (logoClicks >= 5) {
-                window.location.href = 'staff.html';
+                window.location.href = 'staff-login.html';
             }
             // Reset after 2 seconds of inactivity
             setTimeout(() => {
