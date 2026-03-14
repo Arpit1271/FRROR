@@ -28,6 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
         addModal.classList.remove('active');
     });
 
+    // Orders Modal Logic
+    const ordersModal = document.getElementById('orders-modal');
+    document.getElementById('btn-open-orders').addEventListener('click', () => {
+        renderOrders();
+        ordersModal.classList.add('active');
+    });
+    document.getElementById('btn-close-orders').addEventListener('click', () => {
+        ordersModal.classList.remove('active');
+    });
+
     // Add Item Logic
     document.getElementById('btn-add-item').addEventListener('click', () => {
         const nameInput = document.getElementById('item-name');
@@ -304,4 +314,39 @@ function compressImage(file, callback) {
 function preventDefaults(e) {
     e.preventDefault();
     e.stopPropagation();
+}
+
+// Render Orders in the Staff Modal
+function renderOrders() {
+    const container = document.getElementById('orders-list');
+    const orders = JSON.parse(localStorage.getItem('frrorOrders')) || [];
+
+    container.innerHTML = '';
+
+    if (orders.length === 0) {
+        container.innerHTML = '<div class="empty-orders"><p>No orders yet.</p><p style="font-size: 0.9rem;">Orders will appear here when customers check out.</p></div>';
+        return;
+    }
+
+    // Show newest orders first
+    [...orders].reverse().forEach(order => {
+        const time = new Date(order.timestamp);
+        const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const itemsHtml = Object.entries(order.items).map(([name, item]) =>
+            `<li><span>${name} × ${item.quantity}</span><span>$${(item.quantity * item.price).toFixed(2)}</span></li>`
+        ).join('');
+
+        const card = document.createElement('div');
+        card.className = 'order-card';
+        card.innerHTML = `
+            <div class="order-header">
+                <span class="order-token">#${order.token}</span>
+                <span class="order-time">${timeStr}</span>
+            </div>
+            <ul class="order-items">${itemsHtml}</ul>
+            <div class="order-total">Total: $${order.total.toFixed(2)}</div>
+        `;
+        container.appendChild(card);
+    });
 }

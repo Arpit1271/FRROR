@@ -166,6 +166,76 @@
                 -4px -4px 8px var(--shadow-light);
         }
 
+        /* Order Cards */
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .order-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            padding: 1.2rem;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .order-token {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 4px;
+        }
+
+        .order-time {
+            font-size: 0.8rem;
+            color: var(--brand-color);
+            opacity: 0.7;
+        }
+
+        .order-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .order-items li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .order-items li:last-child {
+            border-bottom: none;
+        }
+
+        .order-total {
+            text-align: right;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 3rem;
+            color: var(--brand-color);
+            opacity: 0.6;
+        }
+
         /* Mobile Adjustments for Staff Portal */
         @media (max-width: 600px) {
             .staff-form {
@@ -235,6 +305,8 @@
         <div class="brand" style="cursor: pointer;" onclick="window.location.href='home.html'">FRROR <span
                 style="font-size: 1rem; color: var(--accent);">Staff</span></div>
         <div class="nav-actions" style="gap: 1rem;">
+            <button class="neo-btn" id="btn-open-orders" style="padding: 0.5rem 1rem; font-size: 0.9rem;">📋
+                Orders</button>
             <button class="neo-btn" id="btn-open-add"
                 style="padding: 0.5rem 1rem; font-size: 1.2rem; font-weight: 800; color: var(--accent); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center;">+</button>
             <button class="neo-btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;"
@@ -310,6 +382,17 @@
             <div style="display: flex; gap: 1rem; margin-top: 1rem;">
                 <button class="neo-btn" id="btn-save-edit" style="flex: 1;">Save Changes</button>
                 <button class="neo-btn" id="btn-cancel-edit" style="flex: 1; opacity: 0.7;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Glassmorphism Modal -->
+    <div class="glass-modal" id="orders-modal">
+        <div class="glass-content" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
+            <span class="close-glass" id="btn-close-orders">×</span>
+            <h3 style="color: var(--brand-color); margin-bottom: 1.5rem; font-size: 1.5rem;">📋 Active Orders</h3>
+            <div class="order-list" id="orders-list">
+                <!-- Rendered via JS -->
             </div>
         </div>
     </div>

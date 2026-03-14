@@ -1,33 +1,17 @@
 let cart = JSON.parse(localStorage.getItem('frrorCart')) || {};
 
 document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
     renderCart();
 
-    // Theme Switcher Logic
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', toggleTheme);
+    // Checkout Logic
+    document.getElementById('btn-checkout').addEventListener('click', handleCheckout);
+
+    // Close Token Modal
+    document.getElementById('btn-close-token').addEventListener('click', () => {
+        document.getElementById('token-modal').classList.remove('active');
+        window.location.href = 'home.html';
+    });
 });
-
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-        themeToggle.innerText = savedTheme === 'dark' ? '☀️' : '🌙';
-    }
-}
-
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.innerText = newTheme === 'dark' ? '☀️' : '🌙';
-}
 
 function renderCart() {
     const container = document.getElementById('cart-items-container');
@@ -89,5 +73,36 @@ window.updateItem = function (itemName, change) {
     }
 
     localStorage.setItem('frrorCart', JSON.stringify(cart));
-    renderCart(); // Re-render whole cart
+    renderCart();
+}
+
+function handleCheckout() {
+    if (Object.keys(cart).length === 0) return;
+
+    // Generate random 3-digit token (100–999)
+    const token = Math.floor(100 + Math.random() * 900);
+
+    // Build order object
+    const order = {
+        token: token,
+        items: { ...cart },
+        total: Object.values(cart).reduce((sum, item) => sum + (item.quantity * item.price), 0),
+        timestamp: new Date().toISOString()
+    };
+
+    // Save to orders array in localStorage
+    let orders = JSON.parse(localStorage.getItem('frrorOrders')) || [];
+    orders.push(order);
+    localStorage.setItem('frrorOrders', JSON.stringify(orders));
+
+    // Clear the cart
+    cart = {};
+    localStorage.setItem('frrorCart', JSON.stringify(cart));
+
+    // Show the token modal
+    document.getElementById('token-display').textContent = token;
+    document.getElementById('token-modal').classList.add('active');
+
+    // Re-render empty cart behind the modal
+    renderCart();
 }
