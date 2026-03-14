@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FRROR Staff Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+    <style>
+        .staff-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .staff-form {
+            padding: 2rem;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: var(--brand-color);
+        }
+
+        .neo-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            box-shadow:
+                inset 4px 4px 8px var(--shadow-dark),
+                inset -4px -4px 8px var(--shadow-light);
+            outline: none;
+        }
+
+        .neo-input:focus {
+            box-shadow:
+                inset 6px 6px 10px var(--shadow-dark),
+                inset -6px -6px 10px var(--shadow-light);
+            border: 1px solid var(--accent);
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .menu-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-radius: 15px;
+            background: var(--bg-color);
+            box-shadow:
+                6px 6px 12px var(--shadow-dark),
+                -6px -6px 12px var(--shadow-light);
+        }
+
+        .item-row-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .item-row-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow:
+                inset 3px 3px 6px var(--shadow-dark),
+                inset -3px -3px 6px var(--shadow-light);
+            padding: 5px;
+            mix-blend-mode: multiply;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .btn-delete {
+            color: #e53e3e;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(224, 229, 236, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .neo-dropzone {
+            width: 100%;
+            padding: 2rem;
+            border-radius: 12px;
+            background: var(--bg-color);
+            text-align: center;
+            cursor: pointer;
+            box-shadow:
+                inset 4px 4px 8px var(--shadow-dark),
+                inset -4px -4px 8px var(--shadow-light);
+            border: 2px dashed transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--brand-color);
+        }
+
+        .neo-dropzone.dragover {
+            border-color: var(--accent);
+            box-shadow:
+                inset 6px 6px 12px var(--shadow-dark),
+                inset -6px -6px 12px var(--shadow-light);
+        }
+
+        .dropzone-preview {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 10px;
+            display: none;
+            box-shadow:
+                4px 4px 8px var(--shadow-dark),
+                -4px -4px 8px var(--shadow-light);
+        }
+
+        /* Mobile Adjustments for Staff Portal */
+        @media (max-width: 600px) {
+            .staff-form {
+                padding: 1rem;
+            }
+
+            .menu-item-row {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+                padding: 1rem;
+            }
+
+            .item-row-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .item-actions {
+                justify-content: center;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .neo-dropzone {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .staff-form {
+                padding: 0.8rem;
+            }
+
+            .menu-item-row {
+                padding: 0.8rem;
+            }
+
+            .item-row-img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .action-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .neo-dropzone {
+                padding: 0.8rem;
+            }
+
+            .glass-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="neo-nav">
+        <div class="brand" style="cursor: pointer;" onclick="window.location.href='home.html'">FRROR <span
+                style="font-size: 1rem; color: var(--accent);">Staff</span></div>
+        <div class="nav-actions" style="gap: 1rem;">
+            <button class="neo-btn" id="btn-open-add"
+                style="padding: 0.5rem 1rem; font-size: 1.2rem; font-weight: 800; color: var(--accent); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center;">+</button>
+            <button class="neo-btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;"
+                onclick="window.location.href='home.html'">Exit Portal</button>
+        </div>
+    </nav>
+
+    <div class="main-container staff-container">
+
+        <h2 class="section-title" style="margin: 1rem 0 0 0; text-align: left;">Manage Current Menu</h2>
+
+        <div class="menu-list" id="staff-menu-list">
+            <!-- Rendered via JS -->
+        </div>
+
+    </div>
+
+    </div>
+
+    <!-- Glassmorphism Add Item Modal -->
+    <div class="glass-modal" id="add-glass-modal">
+        <div class="glass-content staff-form" id="add-form">
+            <span class="close-glass" id="btn-close-add">×</span>
+            <h3 style="color: var(--brand-color); margin-bottom: 1rem; font-size: 1.5rem;">Add New Menu Item</h3>
+            <div class="form-group">
+                <label for="item-name" style="color: var(--brand-color);">Item Name</label>
+                <input type="text" id="item-name" class="neo-input" placeholder="e.g. Spicy Chicken Tacos"
+                    style="background: rgba(255,255,255,0.5);">
+            </div>
+            <div class="form-group">
+                <label for="item-price" style="color: var(--brand-color);">Price ($)</label>
+                <input type="number" id="item-price" class="neo-input" placeholder="0.00" step="0.01"
+                    style="background: rgba(255,255,255,0.5);">
+            </div>
+            <div class="form-group">
+                <label style="color: var(--brand-color);">Item Image (Optional)</label>
+                <div class="neo-dropzone" id="dropzone" onclick="document.getElementById('file-input').click()"
+                    style="background: rgba(255,255,255,0.5);">
+                    <span>Drag & Drop an image here, or Click to select</span>
+                    <img id="dropzone-preview" class="dropzone-preview" src="">
+                </div>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <input type="hidden" id="item-img-base64">
+            </div>
+            <button class="neo-btn" id="btn-add-item" style="margin-top: 1rem; background: rgba(255,255,255,0.8);">Add
+                to Menu</button>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="neo-box staff-form modal-content">
+            <h3>Edit Menu Item</h3>
+            <input type="hidden" id="edit-original-name">
+            <div class="form-group">
+                <label for="edit-item-name">Item Name</label>
+                <input type="text" id="edit-item-name" class="neo-input">
+            </div>
+            <div class="form-group">
+                <label for="edit-item-price">Price ($)</label>
+                <input type="number" id="edit-item-price" class="neo-input" step="0.01">
+            </div>
+            <div class="form-group">
+                <label>Update Image</label>
+                <div class="neo-dropzone" id="edit-dropzone"
+                    onclick="document.getElementById('edit-file-input').click()">
+                    <span>Drag & Drop an image here, or Click to change</span>
+                    <img id="edit-dropzone-preview" class="dropzone-preview" src="">
+                </div>
+                <input type="file" id="edit-file-input" accept="image/*" style="display: none;">
+                <input type="hidden" id="edit-item-img-base64">
+            </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button class="neo-btn" id="btn-save-edit" style="flex: 1;">Save Changes</button>
+                <button class="neo-btn" id="btn-cancel-edit" style="flex: 1; opacity: 0.7;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="staff.js"></script>
+</body>
+
+</html>

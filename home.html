@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FRROR Home</title>
+    <!-- Google Fonts for Neomorphism aesthetics -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+
+    <!-- Navigation Area -->
+    <nav class="neo-nav">
+        <!-- Secret 5-click staff portal bypass -->
+        <div class="brand" style="cursor: pointer;" id="secret-brand-link">FRROR</div>
+        <div class="nav-actions">
+            <!-- Theme Toggle Removed -->
+            <div class="cart-icon" onclick="window.location.href='cart.html'">
+                🛒 <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="header-section neo-box">
+            <h1>Welcome to FRROR</h1>
+            <p>Experience soft, delightful culinary excellence.</p>
+            <div class="search-container">
+                <input type="text" id="menu-search" class="neo-search" placeholder="Search for your favorite items...">
+            </div>
+        </div>
+
+        <h2 class="section-title">Our Menu</h2>
+
+        <!-- Grid of Dynamic Neomorphic Cards injected by home.js -->
+        <div class="food-grid" id="dynamic-food-grid">
+            <!-- Rendered via renderMenu() in home.js -->
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="home.js"></script>
+</body>
+
+</html>
